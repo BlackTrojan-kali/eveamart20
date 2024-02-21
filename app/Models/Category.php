@@ -8,7 +8,7 @@ use App\Models\Product;
 class Category extends Model
 {
     use HasFactory;
-    public function Product(){
+    public function hasProduct(){
         return $this->hasMany(Product::class,"id_category");
     }
 }

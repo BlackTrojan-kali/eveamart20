@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("id_admin");
             $table->unsignedBigInteger("id_mart");
-
+            $table->boolean("value");
             $table->foreign('id_admin')->references("id")->on("users")->cascadeOnDelete();
             $table->foreign("id_mart")->references('id')->on("marts")->cascadeOnDelete();
             $table->timestamps();

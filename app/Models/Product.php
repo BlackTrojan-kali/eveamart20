@@ -12,16 +12,19 @@ use App\Models\User;
 class Product extends Model
 {
     use HasFactory;
-    public function Mart(){
+    public function isFromMart(){
         return $this->belongsTo(Mart::class,"id_mart");
     }
-    public function Category(){
+    public function isFromCategory(){
         return $this->belongsTo(Category::class,"id_category");
     }
-    public function Offer(){
-        return $this->belongsToMany(offer::class,"id_product");
+    public function isInOffer(){
+        return $this->belongsToMany(offer::class,"offers","id_product","id_mart");
     }
-    public function User(){
-        return $this->belongsToMany(User::class);
+    public function isLiked(){
+        return $this->belongsToMany(User::class,"likes","id_user","id_product")->withPivot("value")->withTimestamps();
+    }
+    public function idCommented(){
+        return $this->belongsToMany(User::class,"comments","id_user","id_product")->withPivot("message")->withTimestamps();
     }
 }

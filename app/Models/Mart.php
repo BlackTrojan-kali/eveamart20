@@ -10,15 +10,15 @@ use App\Models\offer;
 class Mart extends Model
 {
     use HasFactory;
-    public function User(){
-        return   $this->belongsToMany(User::class);
+   
+    public function idruledByUser(){
+        return $this->belongsToMany(Mart::class,"assignations","id_user","id_mart")->withPivot("value")->withTimestamps();
     }
     public function Product(){
         return $this->hasMany(Product::class,"id_mart");
     }
-    public function Mart(){
-
-        return $this->hasMany(offer::class,"id_mart");
+    public function isFollowed(){
+        return $this->belongsToMany(User::class,"followers","id_mart","id_user")->withPivot("value")->withTimestamps();
     }
     
 }
