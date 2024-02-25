@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\User;
-use App\Models\Product;
+
 return new class extends Migration
 {
     /**
@@ -12,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('followers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("id_mart");
             $table->unsignedBigInteger("id_user");
-            $table->unsignedBigInteger("id_product");
             $table->boolean("value");
+            $table->foreign("id_mart")->references("id")->on("marts")->onDelete("cascade");
             $table->foreign("id_user")->references("id")->on("users")->onDelete("cascade");
-            $table->foreign("id_product")->references("id")->on("products")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('followers');
     }
 };

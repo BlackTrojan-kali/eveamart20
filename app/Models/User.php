@@ -7,38 +7,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Order;
 use App\Models\Blog;
 use App\Models\Mart;
-use App\Models\offer;
+use App\Models\Offer;
 use App\Models\Product;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public function ruleMart(){
-        return $this->belongsToMany(Mart::class,"assignations","id_user","id_mart")->withPivot("value")->withTimestamps();
-    }
-    public function Order(){
-        return $this->hasMany(Order::class,'id_admin');
-    }
     public function isFollowing(){
         return $this->belongsToMany(Mart::class,"followers","id_mart","id_user")->withPivot("value")->withTimestamps();
     }
-    public function subscribeToMart(){
-        return $this->belongsToMany(Mart::class,"subscription","id_user","id_product")->withPivot("value")->withTimestamps();
+    public function subscribeToOffer(){
+        return $this->belongsToMany(Offer::class,"offers_users","id_user","id_offer")->withPivot("subscription_value")->withTimestamps();
     }
 
-    public function useOffer(){
-        return $this->belongsToMany(offer::class,"offer","id_user","id_mart")->withPivot("periosd")->withTimestamps();
-    }
-    public function PostedBlogs(){
-        return $this->hasMany(Blog::class,"id_admin");
-    }
     public function likes(){
         return $this->belongsToMany(Product::class,"likes","id_user","id_product")->withPivot("value")->withTimestamps();
     }
     public function commented(){
-        return $this->belongsToMany(Product::class,"comments","id_user","id_product")->withPivot("message")->withTimestamps();
+        return $this->belongsToMany(Product::class,"comments","id_user","id_product")->withPivot("comment")->withTimestamps();
     }
     /**
      * The attributes that are mass assignable.

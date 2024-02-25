@@ -7,17 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
 use App\Models\Mart;
 use App\Models\User;
-
-class offer extends Model
+class Offer extends Model
 {
     use HasFactory;
-    public function Product(){
+    public function useProd(){
         return $this->hasOne(Product::class,"id_product");
     }
-    public function Mart (){
+    public function fromMart(){
         return $this->belongsTo(Mart::class,"id_mart");
     }
-    public function User(){
-        return $this->hasMany(User::class,"id_user");
+    public function subscribedUsers(){
+        return $this->belongsToMany(User::class,"offers_users","id_user","id_offer")->withPivot("subscription_value")->withTimestamps();
     }
 }

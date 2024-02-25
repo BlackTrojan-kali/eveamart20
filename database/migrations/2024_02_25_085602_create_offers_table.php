@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->string("offer_title");
+            $table->string("offer_name");
             $table->integer("offer_value");
-            $table->string("offer_period");
-            $table->date("offer_end");
-            $table->smallInteger("qty");
-            $table->unsignedBigInteger("id_mart");
+            $table->string("offer_sequence");
             $table->unsignedBigInteger("id_product");
-
-            $table->foreign("id_product")->references("id")->on("products");
-            $table->foreign("id_mart")->references("id")->on("marts");
+            $table->unsignedBigInteger("id_mart");
+            $table->foreign("id_mart")->references("id")->on("marts")->onDelete("cascade");
+            $table->foreign("id_product")->references("id")->on("products")->onDelete("cascade");
             $table->timestamps();
         });
     }

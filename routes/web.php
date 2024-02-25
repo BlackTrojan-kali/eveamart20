@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers as controllers;;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/login',function(){
-    return view('login');
-});
+Route::get('/',[controllers\homepage_controller::class,"index"]);
+Route::get('/login',[controllers\authRegisterController::class,"login"]);
 
-Route::get('/signup',function(){
-    return view('signup');
-});
+Route::get('/signup',[controllers\authRegisterController::class,"register"]);
 

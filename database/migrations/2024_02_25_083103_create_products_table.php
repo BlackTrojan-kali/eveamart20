@@ -12,22 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('product_name');
-            $table->string('product_image1');
-            $table->string("product-image2")->nullable();
-            $table->string("product-price");
-            $table->text("product_desc")->nullable();
+            $table->id();  
+            $table->string("product_name");
+            $table->string("product_image");
+            $table->float("product_price");
+            $table->text("product_description")->nullable();
             $table->float("product_weight")->nullable();
-            $table->integer("outcomes")->nullable();
+            $table->integer("product_outcomes")->nullable();
             $table->string("product_type")->nullable();
-            $table->integer("qty_in_stock");
-            $table->smallInteger("promo")->nullable();
+            $table->bigInteger("qty_in_stock");
+            $table->integer("promo_on_product");
             $table->unsignedBigInteger("id_category");
             $table->unsignedBigInteger("id_mart");
 
-            $table->foreign("id_category")->references("id")->on("categories");
-            $table->foreign("id_mart")->references("id")->on("marts");
+            $table->foreign("id_category")->references("id")->on("categories")->onDelete("cascade");
+            $table->foreign("id_mart")->references("id")->on("marts")->onDelete("cascade");
             $table->timestamps();
         });
     }

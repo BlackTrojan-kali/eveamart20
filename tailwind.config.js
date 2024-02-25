@@ -9,6 +9,12 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily:{
+      'National':"Protest Riot",
+      'Human':"Bebas Neue",
+      'Pop':"Poppins",
+      'Rob':"Roboto"
+    }
   },
   plugins: [
     require('flowbite/plugin')

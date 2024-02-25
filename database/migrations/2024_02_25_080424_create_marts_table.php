@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('marts', function (Blueprint $table) {
             $table->id();
             $table->string("mart_name");
-            $table->string("mart_country");
             $table->string("mart_logo")->nullable();
-            $table->string("mart_email")->nullable();
-            $table->string("mart_city")->nullable();
-            $table->json("mart_position")->nullable();
-            $table->Integer("mart_MOMO")->nullable();
-            $table->Integer("mart_OM")->nullable();
+            $table->string("mart_country");
+            $table->string("mart_email")->unique();
+            $table->string("mart_city");
+            $table->json("mart_localisation")->nullable();
+            $table->bigInteger("mtn_number");
+            $table->bigInteger("orange_number");
             $table->timestamps();
         });
     }

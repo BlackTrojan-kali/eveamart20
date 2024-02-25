@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('admins_marts', function (Blueprint $table) {
             $table->id();
-            $table->string("color");
-            $table->string('message');
+            $table->unsignedBigInteger("id_mart");
+            $table->unsignedBigInteger("id_admin");
+            $table->foreign("id_mart")->references("id")->on("marts")->onDelete("cascade");
+            $table->foreign("id_admin")->references("id")->on("admins")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('admins_marts');
     }
 };
