@@ -16,8 +16,8 @@
             <img src="/images/logoEveamart.png" width="200px" alt="">
             <div class=" p-4 ">
                 <h1 class="font-National font-bold text-3xl m-1">Salut !! <br>
-                Bienvenue Sur <span class="text-red-600">Eveamart.</span></h1>
-                <form action="{{route('authenticate')}}" method='POST'>
+                Connectez vous comme <span class="text-red-600">Admin.</span></h1>
+                <form action="{{route('adminAuth')}}" method='POST'>
                     @csrf
                     @if($errors)
                         <span class="text-red-500">
@@ -51,16 +51,10 @@
                     <button type="submit" class="bg-green-400 p-3 rounded-sm  text-white w-11/12  hover:bg-orange-500 transition-all duration-500">
                         LogIn
                     </button>
-                    <button class="text-black mt-2 p-3 rounded-sm border-2 border-gray  w-11/12">
-                        Sign with Google
-                    </button>
                 </div>
             </form>
                 <p class="py-2">
-                    vous n'avez pas de compte ? <a class="text-red-500" href="/signup"> creer un compte</a>
-                </p>
-                <p class="py-2">
-                    se connecter en tant que admin? <a class="text-red-500" href="/loginAdmin"> dashboard</a>
+                    se connecter en tant que utilisateur? <a class="text-green-500" href="/loginAdmin"> connexion</a>
                 </p>
             </div>
         </div>
