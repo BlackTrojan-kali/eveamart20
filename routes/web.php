@@ -17,13 +17,29 @@ use App\Http\Controllers as controllers;;
 
 Route::get('/',[controllers\homepage_controller::class,"index"])->name('homePage');
 Route::get('/login',[controllers\authRegisterController::class,"login"])->name("login");
-Route::get("/loginAdmin",[controllers\adminPanelController::class,"login"])->name("loginAdmin");
+Route::get("/loginAdmin",[controllers\adminPanelController::class,"login"])->name("loginAdmin")->middleware("guest");
 Route::post("/adminAuth",[controllers\adminPanelController::class,"AdminAuth"])->name("adminAuth");
 Route::group(["middleware"=>"admin"],function(){
     Route::get('/admin/dashboard',[controllers\adminPanelController::class,"dashboardAdmin"])->name("dashboard");
-    Route::get('/logoutAdmin',[controllers\adminPanelController::class,"logout"])->name("adminlogout");
+    Route::post('/admin/logoutAdmin',[controllers\adminPanelController::class,"logout"])->name("adminlogout");
+    Route::get('/admin/blogs',[controllers\BlogController::class,"index"])->name("AdminBlogs");
+    Route::get('/admin/blogs/{id}',[controllers\BlogController::class,"UpdateBlog"])->name("UpdateBlog");
+    Route::get('/admin/createBlogs',[controllers\BlogController::class,"create"])->name("CreateBlogs");
+    Route::post('/admin/blogs/{id}',[controllers\BlogController::class,"Update"])->name("UpdateTheBlog");
+    Route::post('/admin/createB',[controllers\BlogController::class,"createBlog"])->name("PostBlog");
+    Route::delete('/admin/DeleteB/{id}',[controllers\BlogController::class,"Delete"])->name("DeleteBlog");
+    Route::group(["middleware"=>"superAdmin"],function(){
+        Route::get('/admin/marts',[controllers\MartController::class,"index"])->name("AdminMart");
+        Route::get('/admin/createMarts',[controllers\MartController::class,"createMart"])->name("CreateMarts");
+        Route::post('/admin/createM',[controllers\MartController::class,"create"])->name("PostMart");
+        Route::get('/admin/mart/{id}',[controllers\MartController::class,"UpdateMart"])->name("UpdateMart");
+        Route::get('/admin/martManage/{id}',[controllers\MartController::class,"show"])->name("ManageMart");
+        Route::post('/admin/mart/{id}',[controllers\MartController::class,"Update"])->name("UpdateTheMart");
+        Route::get('/admin/addAdmin',[controllers\adminPanelController::class,"addAdmin"])->name("addAdmin");
+        Route::post('/admin/uploadAdmin',[controllers\adminPanelController::class,"registerAdmin"])->name("PostAdmin");
+        Route::get('/admin/EditAdmin/{id}',[controllers\adminPanelController::class,"EditAdmin"])->name("EditAdmin");
+    });
     Route::get('/admin/profile',[controllers\adminPanelController::class,"profile"])->name("profile");
-    Route::get('/admin/addAdmin',[controllers\adminPanelController::class,"adddAdmin"])->name("addAdmin");
 });
 Route::get('/signup',[controllers\authRegisterController::class,"register"]);
 Route::post('/store',[controllers\authRegisterController::class,"store"])->name('register_store');

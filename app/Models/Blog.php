@@ -8,7 +8,8 @@ use App\Models\Admin;
 class Blog extends Model
 {
     use HasFactory;
-    
+    protected $fillable = ["title1","text1","image1","text2","image2","title2"];
+
     public function writtenBlog(){
         return $this->belongsTo(Admin::class,"id_admin");
     }

@@ -2,3 +2,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .inputs {
+        @apply w-full block font-bold my-3;
+    }
+    .my-input {
+        @apply w-full rounded-lg h-10 font-medium;
+    }
+    .my-text-input{
+        @apply w-full rounded-lg h-36;
+    }
+}

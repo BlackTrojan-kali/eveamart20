@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class adminPanelController extends Controller
 {
-    public function __construct(){
-        $this->middleware("guest")->except([
-            'logout','homePage'
-        ]);
-    }
+   
     //
     public function dashboardAdmin(){
         return view("admin.dashboard");
@@ -20,13 +18,37 @@ class adminPanelController extends Controller
         return view("admin.profile");
     }
     public function addAdmin(){
-        return view("admin.addAdmin");
+        $admins = Admin::with('isRulingMart')->get();
+        return view("admin.addAdmin",["admins"=>$admins]);
     }
-    public function login(){
+    public function login(Request $request){
+
         return view('loginAdmin');
     }
+    public function EditAdmin($id){
+            $admin = Admin::findOrFail($id);
+            $admin->with("isRulingMart")->get();
+            return view("admin.EditAdmin",["admin"=>$admin]);
+            
+    }
     public function registerAdmin(Request $request){
-    
+          $request->validate([
+            "username"=>"required|max:250|min:4",
+            "email"=>"email|required|unique:admins",
+            "password"=>"confirmed|required|min:8",
+            "profile"=>"image|mimes:jpeg,png,jpg,webp|max:2048"
+         ]);
+         $admin = new Admin;
+        $filename=time().'.'.request()->profile->getClientOriginalExtension();
+        request()->profile->move(public_path('images'),$filename);
+        $admin->username = $request->username;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->super = 0;
+        $admin->archived=0;
+        $admin->profile= $filename;
+        $admin->save();
+        return back()->withSuccess("Administrateur insere avec success");          
     }
     public function AdminAuth(Request $request){
             $credentials = $request->validate([
