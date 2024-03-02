@@ -18,6 +18,6 @@ class Admin extends Authenticatable
         return $this->hasMany(Blog::class,"id_admin");
     }
     public function isRulingMart(){
-        return $this->belongsToMany(Mart::class,"admins_marts","id_admin","id_mart");
+        return $this->belongsToMany(Mart::class,"admins_marts","id_admin","id_mart")->withPivot("value");
     }
 }

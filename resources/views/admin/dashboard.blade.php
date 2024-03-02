@@ -5,7 +5,7 @@
     @foreach ($errors->all() as $error )
         
         <script>
-            toastr.warning("{{$error}}")
+            toastr.warning("{{$error}}") 
         </script>
 
     @endforeach

@@ -12,7 +12,7 @@ class Mart extends Model
 {
     use HasFactory;
     public function isManagedBy(){
-        return $this->belongsToMany(Admin::class,"admins_marts","id_admin","id_mart");
+        return $this->belongsToMany(Admin::class,"admins_marts","id_mart","id_admin")->withPivot("value");
     }    
     public function hasProducts(){
         return $this->hasMany(Product::class,"id_mart");

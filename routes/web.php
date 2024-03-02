@@ -34,7 +34,14 @@ Route::group(["middleware"=>"admin"],function(){
         Route::post('/admin/createM',[controllers\MartController::class,"create"])->name("PostMart");
         Route::get('/admin/mart/{id}',[controllers\MartController::class,"UpdateMart"])->name("UpdateMart");
         Route::get('/admin/martManage/{id}',[controllers\MartController::class,"show"])->name("ManageMart");
+        Route::get('/admin/martManageAssign/{id}',[controllers\MartController::class,"assign"])->name("AssignMart");
+        Route::post('/admin/martManageAssign/{id}/{idMart}',[controllers\MartController::class,"AssignAdmin"])->name("AssignAdmin");
+        Route::delete('/admin/martManageDelAssign/{id}/{idMart}',[controllers\MartController::class,"deleteAssignAdmin"])->name("UnAssignAdmin");
         Route::post('/admin/mart/{id}',[controllers\MartController::class,"Update"])->name("UpdateTheMart");
+        Route::get('/admin/Categories',[controllers\CategoryController::class,"index"])->name("ManageCategory");
+        Route::post('/admin/Categories',[controllers\CategoryController::class,"createCategory"])->name("AddCategory");
+        Route::get('/admin/Categories/{id}',[controllers\CategoryController::class,"update"])->name("UpdateCategory");
+        Route::post('/admin/UCategories/{id}',[controllers\CategoryController::class,"updateCategory"])->name("UpCategory");
         Route::get('/admin/addAdmin',[controllers\adminPanelController::class,"addAdmin"])->name("addAdmin");
         Route::post('/admin/uploadAdmin',[controllers\adminPanelController::class,"registerAdmin"])->name("PostAdmin");
         Route::get('/admin/EditAdmin/{id}',[controllers\adminPanelController::class,"EditAdmin"])->name("EditAdmin");

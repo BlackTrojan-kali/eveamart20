@@ -75,7 +75,7 @@
         <h1 class="font-bold" id="liste-des-utilisateurs">Liste des Administrateurs</h1>
         <table class="table-auto w-full border-collapse p-2">
             <th >
-                <tr class="flex justify-between p-2">
+                <tr class="flex justify-between font-bold p-2">
                 <td>profile</td>
                 <td>Username</td>
                 <td>email</td>

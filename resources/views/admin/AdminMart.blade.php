@@ -9,16 +9,19 @@
         <h2 class="font-bold text-2xl mt-2">
             Marts
         </h2>
-        <a href="{{route('CreateMarts')}}">
+        <div>
+        <a href="{{route('ManageCategory')}}">
             <button class="p-3 bg-red-500 text-white font-bold rounded-sm">
                 +
                 Ajouter Categories
-            </button>
+            </button></a>
+            <a href="{{route('CreateMarts')}}">
         <button class="p-3 bg-green-500 text-white font-bold rounded-sm">
             +
             Ajouter Comptoire
         </button>
          </a>
+        </div>
     </div>
     <div class="box w-full border">
         <table class="table-auto border-collapse w-full">

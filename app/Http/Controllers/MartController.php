@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mart;
+use App\Models\Admin;
 class MartController extends Controller
 {
         //
@@ -15,9 +16,24 @@ class MartController extends Controller
     public function createMart(){
         return view("admin.CreateMarts");
     }
+    public function assign($idMart){
+        $admins= Admin::where("super","=",0)->with("isRulingMart")->get();
+        $mart = Mart::findOrFail($idMart);
+        return view("admin.adminAssign",["admins"=>$admins,"mart"=>$mart]);
+    }
+    public function AssignAdmin($idAdmin,$idMart){
+        $admin = Admin::find($idAdmin);
+        $admin->isRulingMart()->attach($idMart);
+        return response()->json(['message' =>"Admin Assigned successfully"]);
+    }
+    public function deleteAssignAdmin($idAdmin,$idMart){
+        $admin = Admin::find($idAdmin);
+        $admin->isRulingMart()->detach($idMart);
+        return response()->json(['message' =>"Admin UnAssigned "]);
+    }
     public function show($id){
-        $mart = Mart::with("isManagedBy","hasProducts")->get();
-        return view("admin.ManageMart",$mart);
+        $mart = Mart::find($id)->with("isManagedBy","hasProducts","isFollowedBy","generatedOffers")->get();
+        return view("admin.ManageMart",["mart"=>$mart[0]]);
     }
     public function create(Request $request){
         $request->validate([
