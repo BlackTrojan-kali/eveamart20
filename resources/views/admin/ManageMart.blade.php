@@ -19,9 +19,11 @@
             <i class="fa-solid fa-user mx-2"></i>Ajouter Un Admin
         </button>
         </a>
+        <a href="{{route("CreateProduct",$mart->id)}}">
         <button class="bg-orange-500 text-white p-2 rounded-sm border">
             <i class="fa-solid fa-cart-shopping mx-2"></i>+Ajouter Un Produit
         </button>
+        </a>
         <button class="bg-green-500 p-2 rounded-sm text-white">
             + Ajouter Une Offre
         </button>
@@ -31,7 +33,7 @@
     <div class="box text-white font-bold text-xl bg-orange-500">
         Nombre de produits
         <br>
-        {{$mart->has_products? count($mart->has_products):0}}
+        {{$mart->hasProducts? count($mart->hasProducts):0}}
     </div>
     <div class="box text-white bg-lime-500 text-xl font-bold">
         Nombre d'offres
@@ -58,7 +60,37 @@
         <h2 class="text-xl font-bold">
             Liste Des Produits
         </h2>
-        <table class="auto-table">
+        <table class="auto-table w-full">
+            <th class="w-full">
+                <tr class="flex justify-between font-bold my-2 border p-2">
+                    <td>S/L</td>
+                    <td>name</td>
+                    <td>price</td>
+                    <td>weight</td>
+                    <td>Qte</td>
+                    <td>Action</td>
+                </tr>
+            </th>
+            @foreach ($mart->hasProducts as $prods)
+            <tr class="border flex justify-between p-2">
+                <td>{{$prods->id}}</td>
+                <td class="flex gap-2"><img class="w-7 h-7 rounded-full" src="/images/{{$prods->product_image}}" alt="">{{$prods->product_name}}</td>
+                <td>{{$prods->product_price}}</td>
+                <td>{{$prods->product_weight}}</td>
+                <td>{{$prods->qty_in_stock}}</td>
+                <td class="flex gap-2">
+                    <a href="/admin/UpdateProduct/{{$prods->id}}/{{$prods->id_mart}}/{{$prods->id_category}}" class="text-blue-500 text-xl"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form action="">
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
+                        @csrf
+                        @method("delete")
+                        <button class="text-xl text-red-500">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
         </table>
    </div>
    <div class="box my-4">

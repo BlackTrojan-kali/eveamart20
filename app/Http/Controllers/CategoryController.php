@@ -13,7 +13,7 @@ class CategoryController extends Controller
     }
     public function createCategory(Request $request){
             $request->validate([
-                "name"=>"string|min:2|required|max:250"
+                "name"=>"string|min:2|required|max:250|"
             ]);
             
             $category = new Category();
@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function updateCategory(Request $request,$id){
 
             $request->validate([
-                "name"=>"string|min:2|required|max:250"
+                "name"=>"string|min:2|required|max:250|"
             ]);
             
             $category = Category::findOrFail($id);

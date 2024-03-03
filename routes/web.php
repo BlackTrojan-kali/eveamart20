@@ -42,6 +42,11 @@ Route::group(["middleware"=>"admin"],function(){
         Route::post('/admin/Categories',[controllers\CategoryController::class,"createCategory"])->name("AddCategory");
         Route::get('/admin/Categories/{id}',[controllers\CategoryController::class,"update"])->name("UpdateCategory");
         Route::post('/admin/UCategories/{id}',[controllers\CategoryController::class,"updateCategory"])->name("UpCategory");
+        Route::get('/admin/CreateProduct/{id}',[controllers\ProductController::class,"createProducts"])->name("CreateProduct");
+        Route::get('/admin/UpdateProduct/{id}/{idMart}/{idCat}',[controllers\ProductController::class,"updateProduct"])->name("UpdateProduct");
+        Route::post('/admin/CreateProducts',[controllers\ProductController::class,"create"])->name("PostProduct");
+        Route::post('/admin/UpdateProduct/{id}',[controllers\ProductController::class,"update"])->name("UpProduct");
+        Route::delete('/admin/deleteProduct/{id}',[controllers\ProductController::class,"destroy"])->name("DelProduct");
         Route::get('/admin/addAdmin',[controllers\adminPanelController::class,"addAdmin"])->name("addAdmin");
         Route::post('/admin/uploadAdmin',[controllers\adminPanelController::class,"registerAdmin"])->name("PostAdmin");
         Route::get('/admin/EditAdmin/{id}',[controllers\adminPanelController::class,"EditAdmin"])->name("EditAdmin");
