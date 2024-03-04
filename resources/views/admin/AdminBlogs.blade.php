@@ -19,19 +19,19 @@
     <div class="box w-full border">
         <table class="table-auto border-collapse w-full">
             <th class="font-bold">
-                <tr class="border p-4" >
+                <tr class="border flex justify-between p-4" >
                     <td>S/L</td>
                     <td>title</td>
-                    <td>Author</td>
+                    <td class="hidden md:flex">Author</td>
                     <td>Actions</td>
                 </tr>
             </th>
             @foreach ($blogs as $blog)
-            <tr class="border relative" id="blog-{{$blog->id}}">
+            <tr class="border flex justify-between" id="blog-{{$blog->id}}">
                 <td class="p-3">{{$blog->id}}</td>
                 <td class="flex gap-2 p-2 "><img src="/images/{{$blog->image1}}" class="w-10 h-10 rounded-full" alt=""> <p class="py-2">{{$blog->title1}}</p></td>
-                <td class="p-3">{{$blog->writtenBlog->username}}</td>
-                <td class="flex absolute top-3">
+                <td class="p-3 hidden md:flex">{{$blog->writtenBlog->username}}</td>
+                <td class="flex ">
                   @if(Auth::guard('admin')->user()->super) 
                         @if ($blog->writtenBlog->super)
                             <a href="{{route('UpdateBlog',$blog->id)}}" title="edit blog" class="text-blue-500 text-xl"><i class="fa-regular fa-pen-to-square"></i></a>

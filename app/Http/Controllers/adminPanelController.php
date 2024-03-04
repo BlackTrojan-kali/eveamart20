@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Mart;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,17 +59,26 @@ class adminPanelController extends Controller
             if(Auth::guard("admin")->attempt($credentials)){
                 $request->session()->regenerate();
                 return redirect()->route('dashboard')->withSuccess("login successfull");
-            }else{
+            }
                 return back()->withErrors([
                     'email' =>"You provided credentials do not match in our record"
                  ])->onlyInput('email');
-            }
-
+            
+    }
+    public function showMarts(){
+        $id = Auth::guard("admin")->user()->id;
+        $admin = Admin::where("id",$id)->with("isRulingMart")->first();
+        return view("admin.guestAdminMarts",["admin"=>$admin->isRulingMart]);
     }
     public function logout(Request $request){
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login');
+    }
+    public function destroy($id){
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+        return response()->json(["message"=>"admin deleted successfully"]);
     }
 }

@@ -65,7 +65,7 @@ class ProductController extends Controller
             "weight"=>"numeric|nullable|gt:0",
             "cats"=>"numeric|required",
             "mart"=>"numeric|required",
-            "image1"=>"image|max:4096|nullable|mimes:jpg,jpeg,png,webp",
+            "image1"=>"image|max:10096|nullable|mimes:jpg,jpeg,png,webp",
             "Qty"=>"numeric|required|"
         ]);
         $prod = Product::findOrFail($id);
@@ -91,5 +91,11 @@ class ProductController extends Controller
         $prod->product_image = $filename;
         $prod->save();
         return back()->withSuccess("product inserted Successfully");
+    }
+    public function destroy($id){
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return response()->json(["message"=>"product delete successfully"]);
+
     }
 }

@@ -17,10 +17,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-   <section class="sideba hidden md:block md:flex-initial md:w-3/12 border-gray-200 border ">
-            <div class="sidehead w-full border border-grey-200">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <section class="Adminsidebar hidden md:block md:flex-initial md:w-3/12 border-gray-200 border ">
+            <div class="sidehead w-full flex border relative border-grey-200">
             <img src="/images/logoEveamart.png" class="w-36" alt="">
+            <i class="fa-solid fa-xmark absolute top-5 hidden text-2xl right-6"></i>
             </div>
             <div class="sideUser relative flex text-sm gap-2 p-5">
                 <img src="/images/{{Auth::guard('admin')->user()->profile}}" class="rounded-full w-10 h-10" alt="">
@@ -38,11 +39,14 @@
                     <li class="w-11/12  text-start mx-2 rounded-sm p-1 my-1">
                         <a href=""><i class="fa-solid fa-database mx-2"></i>Stocks</a>
                     </li>
+                    @if(Auth::guard("admin")->user()->super)
                     <li class="w-11/12  text-start mx-2 rounded-sm p-1 my-1">
                         <a href=""><i class="fa-solid fa-cart-shopping mx-2"></i>Orders</a>
                     </li>
+                    @else
+                    @endif
                     <li class="w-11/12  text-start mx-2 rounded-sm p-1 my-1">
-                        <a href=""><i class="fa-solid fa-bag-shopping mx-2"></i>Products</a>
+                        <a href="{{route("ShowMarts")}}"><i class="fa-solid fa-bag-shopping mx-2"></i>Products</a>
                     </li>
                     <li class="w-11/12  text-start mx-2 rounded-sm p-1 my-1">
                         <a href="{{route('AdminBlogs')}}"><i class="fa-solid fa-blog mx-2"></i>Blogs</a>
@@ -52,11 +56,13 @@
                         <a href="{{route('AdminMart')}}"><i class="fa-solid fa-shop mx-2"></i>Marts</a>
                     </li>
                     @endif
-
+                    @if(Auth::guard('admin')->user()->super)
                     <li class="w-11/12  text-start mx-2 rounded-sm p-1 my-1">
                         <a href=""><i class="fa-regular fa-user mx-2"></i>Users</a>
                     </li>
                     <br>
+                    @else
+                    @endif
 
                 <ul class="mt-3 border">
                     @if(!Auth::guard("admin")->user()->super)
@@ -84,8 +90,10 @@
    <section class="w-full md:w-9/12">
     <header class="w-full p-4 border flex justify-between">
         <div class="search">
+            <i class="show mx-3 fa-solid fa-bars text-xl md:hidden"></i>
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
+        
         <div class="flex">
             <div class="relative">
                 <i class="fa-regular fa-bell mx-2 cursor-pointer"></i>
@@ -103,5 +111,24 @@
     @yield('content')
     
    </section>
+   <script>
+        $(document).ready(function(){
+
+            sidebar = $(".Adminsidebar")
+            xmark = $(".fa-xmark")
+            $(".show").on("click",function(e){
+                e.preventDefault()
+                sidebar.addClass("showSide")
+                sidebar.removeClass("hidden")
+                xmark.removeClass("hidden")               
+            })
+            $(".fa-xmark").on('click',function(e){
+                e.preventDefault()
+                sidebar.removeClass("showSide")
+                sidebar.addClass("hidden")
+                xmark.addClass("hidden")
+            })
+        })
+   </script>
 </body>
 </html>

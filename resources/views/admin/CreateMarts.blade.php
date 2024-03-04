@@ -1,6 +1,6 @@
 @extends("admin.adminLayout")
 @section("content")
-<div class="w-full bg-slate-300 h-full px-10 py-5">
+<div class="w-full bg-slate-300 h-full px-5 md:px-10 py-5">
     @if(Session::has('success'))
         <script>
             toastr.success("{{Session::get('success')}}")
@@ -13,7 +13,7 @@
     </div>
 
 
-    <div class="w-11/12">
+    <div class="w-full">
 
         <form action="{{route('PostMart')}}" enctype="multipart/form-data" method="POST" class="w-full">
             @csrf

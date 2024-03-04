@@ -1,7 +1,7 @@
 @extends("admin.adminLayout")
 @section("content")
 <div class="w-full bg-slate-300 h-full px-10 py-5">
-    <div class="box w-8/12 flex gap-1">
+    <div class="box w-8/12 text-xs md:text-base md:flex gap-1">
         <img src="/images/{{Auth::guard('admin')->user()->profile}}" class="w-20 h-20 rounded-full" alt="">
         <div>
             

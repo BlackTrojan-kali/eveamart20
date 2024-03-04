@@ -14,11 +14,6 @@
    <div class="box w-full md:flex justify-between">
     <h2 class="font-bold text-2xl">Manage Mart</h2>
     <div>
-        <a href="{{route("AssignMart",$mart->id)}}">
-        <button class="bg-blue-800 text-xs md:text-base text-white p-2 rounded-sm border">
-            <i class="fa-solid fa-user mx-2"></i>Ajouter Un Admin
-        </button>
-        </a>
         <a href="{{route("CreateProduct",$mart->id)}}">
         <button class="bg-orange-500 text-xs md:text-base text-white p-2 rounded-sm border">
             <i class="fa-solid fa-cart-shopping mx-2"></i>+Ajouter Un Produit

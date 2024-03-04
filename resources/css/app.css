@@ -13,4 +13,8 @@
     .my-text-input{
         @apply w-full rounded-lg h-36;
     }
+
+    .showSide{
+        @apply fixed bg-white z-50 w-5/12;
+    }
 }

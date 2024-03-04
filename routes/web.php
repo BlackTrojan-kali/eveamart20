@@ -38,9 +38,11 @@ Route::group(["middleware"=>"admin"],function(){
         Route::post('/admin/martManageAssign/{id}/{idMart}',[controllers\MartController::class,"AssignAdmin"])->name("AssignAdmin");
         Route::delete('/admin/martManageDelAssign/{id}/{idMart}',[controllers\MartController::class,"deleteAssignAdmin"])->name("UnAssignAdmin");
         Route::post('/admin/mart/{id}',[controllers\MartController::class,"Update"])->name("UpdateTheMart");
+        Route::delete('/admin/delMart/{id}',[controllers\MartController::class,"destroy"])->name("deleteeMart");
         Route::get('/admin/Categories',[controllers\CategoryController::class,"index"])->name("ManageCategory");
         Route::post('/admin/Categories',[controllers\CategoryController::class,"createCategory"])->name("AddCategory");
         Route::get('/admin/Categories/{id}',[controllers\CategoryController::class,"update"])->name("UpdateCategory");
+        Route::delete('/admin/delCategories/{id}',[controllers\CategoryController::class,"destroy"])->name("deleteCategory");
         Route::post('/admin/UCategories/{id}',[controllers\CategoryController::class,"updateCategory"])->name("UpCategory");
         Route::get('/admin/CreateProduct/{id}',[controllers\ProductController::class,"createProducts"])->name("CreateProduct");
         Route::get('/admin/UpdateProduct/{id}/{idMart}/{idCat}',[controllers\ProductController::class,"updateProduct"])->name("UpdateProduct");
@@ -50,7 +52,11 @@ Route::group(["middleware"=>"admin"],function(){
         Route::get('/admin/addAdmin',[controllers\adminPanelController::class,"addAdmin"])->name("addAdmin");
         Route::post('/admin/uploadAdmin',[controllers\adminPanelController::class,"registerAdmin"])->name("PostAdmin");
         Route::get('/admin/EditAdmin/{id}',[controllers\adminPanelController::class,"EditAdmin"])->name("EditAdmin");
+        Route::delete('/admin/deleteAdmin/{id}',[controllers\adminPanelController::class,"destroy"])->name("deleteAdmin");
     });
+    Route::get('/admin/GuestAdminMart/',[controllers\adminPanelController::class,"showMarts"])->name("ShowMarts");
+    Route::get('/admin/Gmart/{id}',[controllers\MartController::class,"UpdateGuestMart"])->name("UpdateGuestMart");
+    Route::get('/admin/marGtManage/{id}',[controllers\MartController::class,"show"])->name("ManageGuestMart");
     Route::get('/admin/profile',[controllers\adminPanelController::class,"profile"])->name("profile");
 });
 Route::get('/signup',[controllers\authRegisterController::class,"register"]);

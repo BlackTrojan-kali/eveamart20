@@ -36,4 +36,9 @@ class CategoryController extends Controller
             $category->save();
             return back()->withSuccess("Category updated successfully");
     }
+    public function destroy($id){
+        $cat = Category::findOrFail($id);
+        $cat->delete();
+        return response()->json(["message"=>"category deleted successfully"]);
+    }
 }

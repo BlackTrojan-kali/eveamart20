@@ -32,8 +32,27 @@ class MartController extends Controller
         return response()->json(['message' =>"Admin UnAssigned "]);
     }
     public function show($id){
+        if(Auth::guard("admin")->user()->super){
         $mart = Mart::find($id)->with("isManagedBy","hasProducts","isFollowedBy","generatedOffers")->get();
         return view("admin.ManageMart",["mart"=>$mart[0]]);
+    }else{
+        $admin = Auth::guard("admin")->user();
+    $can = false;
+    if(isset($admin->isRulingMart)){
+        foreach($admin->isRulingMart as $mart){
+            if($mart->id == $id){
+                $can = true;
+            }
+        }
+        if($can){
+            $mart = Mart::find($id)->with("isManagedBy","hasProducts","isFollowedBy","generatedOffers")->get();
+            return view("admin.guestManageMart",["mart"=>$mart[0]]);
+        }else{
+            return back()->withErrors("You are not authorize to modify this mart");
+        }
+    }
+    }
+    
     }
     public function create(Request $request){
         $request->validate([
@@ -67,6 +86,24 @@ public function UpdateMart($id){
     return view("admin.UpdateMart",["mart"=>$mart]);
 
 }
+public function UpdateGuestMart($id){
+    $admin = Auth::guard("admin")->user();
+    $can = false;
+    if(isset($admin->isRulingMart)){
+        foreach($admin->isRulingMart as $mart){
+            if($mart->id == $id){
+                $can = true;
+            }
+        }
+        if($can){
+            $mart = Mart::findOrFail($id);
+            return view("admin.UpdateMart",["mart"=>$mart]);
+        }else{
+            return back()->withErrors("You are not authorize to modify this mart");
+        }
+    }
+
+}
 public function Update(Request $request,$id){
     $mart = Mart::findOrFail($id);
 
@@ -95,5 +132,10 @@ public function Update(Request $request,$id){
     $mart->orange_number= $request->numOrange;
     $mart->save();
     return back()->withSuccess("Mart inserted Successfully");
+}
+public function destroy($id){
+    $mart = Mart::findOrFail($id);
+    $mart->delete();
+    return response()->json(["message"=>"Mart deleted successfully"]);
 }
 }

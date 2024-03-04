@@ -1,6 +1,6 @@
 @extends("admin.adminLayout")
 @section("content")
-<div class="w-full bg-slate-300 h-full px-10 py-5">
+<div class="w-full bg-slate-300 h-full px-5 md:px-10 py-5">
     @if(Session::has('success'))
         <script>
             toastr.success("{{Session::get('success')}}")
@@ -13,7 +13,7 @@
     </div>
 
 
-    <div class="w-11/12">
+    <div class="w-full">
 
         <form action="{{route('AddCategory')}}" enctype="multipart/form-data" method="POST" class="w-full">
             @csrf
@@ -29,14 +29,14 @@
                     @endif
                 </div>
 
-        <button class="btn w-3/12 bg-red-500 p-2 rounded-md text-white" type="submit">
+        <button class="btn bg-red-500 p-2 w-36 rounded-md text-white text-sm md:text-base" type="submit">
             <i class="fa-solid fa-floppy-disk"></i>  Envoyer
         </button>
     </form>
     
     </div>
 
-    <div class="box w-full my-3">
+    <div class="box w-full my-3" id="catList">
         <h2 class="font-bold">
             liste des categories  </h2>
             <br>
@@ -58,11 +58,11 @@
                     </td>
                     <td class="flex ">
                         <a href="{{route('UpdateCategory',$cat->id)}}" class="text-purple-500 text-xl"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <form action="">
+                        <form  id={{$cat->id}} action="">
                             @csrf
                             @method('delete')
                             <meta name="csrf-token" content="{{ csrf_token() }}">
-                            <button class="text-red-500 text-xl ">
+                            <button class="deleteCat text-red-500 text-xl ">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
@@ -78,5 +78,46 @@
     </div>
 </div>
 <script>
+       $(document).ready(function(){
+        $(".deleteCat").on("click",function(e){
+            e.preventDefault();
+             var id = $(this).parent().attr("id")
+             var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+             Swal.fire({
+  title: "etes vous sures?",
+  text: "Cette Operation est Irreversible!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+    if(result.isConfirmed){
+            $.ajax({
+                type:"DELETE",
+                url:"/admin/delCategories/"+id,
+                dataType:'json', 
+                headers: {
+        'X-CSRF-TOKEN': csrfToken
+      },
+                success:function(response){
+                    $("#catList").load(' #catList');
+                    toastr.warning(response.message)
+                },
+                error:function(xhr,status,error){
+                    toastr.error("something went wrong")
+                    console.log(xhr.responseText)
+                }
+            })
+}
+    else{
+
+        toastr.error("Operation annulee")
+    }
+        })
+    
+        })
+    })
 </script>
 @endsection
