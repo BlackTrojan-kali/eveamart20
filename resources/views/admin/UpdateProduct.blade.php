@@ -14,8 +14,9 @@
 
     <div class="w-11/12">
 
-        <form action="{{route("UpProduct",$prod->id)}}" enctype="multipart/form-data" method="POST" class="w-full">
+        <form action="{{route(Auth::guard("admin")->user()->super ? "UpProduct":"UpGProduct",$prod->id)}}" enctype="multipart/form-data" method="POST" class="w-full">
             @csrf
+            @method('put')
         <div class="w-full box">
             <h2 class="font-bold">
                 Information generales
@@ -29,7 +30,7 @@
                 </div>
                 <div class="inputs">
                     <label for="">prix du Produit<span class="text-red-500">*</span></label>
-                    <input name="price" value="{{$prod->product_price}}" required type="number" class="my-input" placeholder="prix du produit">
+                    <input name="price" value="{{$prod->product_price}}"  type="number" class="my-input" placeholder="prix du produit">
                     @if($errors->has('price'))
                     <span class="text-red-500">{{$errors->first('price')}}</span>
                     @endif

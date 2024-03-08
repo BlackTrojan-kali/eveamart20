@@ -59,7 +59,7 @@ class ProductController extends Controller
         }
     public function update(Request $request,$id){
         $request->validate([
-            "product_name" =>"required|string|unique:products|min:2",
+            "product_name" =>"required|string|min:2",
             "price"=>"required|numeric|gt:0",
             "desc"=>"nullable|string",
             "weight"=>"numeric|nullable|gt:0",
@@ -73,8 +73,6 @@ class ProductController extends Controller
         $prod->product_price = $request->price + ($request->price * (env("PERCENTAGE")/100));
         $prod->product_description = $request->desc;
         $prod->product_weight =  $request->weight;
-        $prod->promo_on_product = 0;
-        $prod->product_outcomes = 0;
         $filename = $prod->product_image;
         if($request->Qty <= 0){
             $prod->qty_in_stock = 0;

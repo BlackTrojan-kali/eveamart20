@@ -37,23 +37,14 @@ class MartController extends Controller
         return view("admin.ManageMart",["mart"=>$mart[0]]);
     }else{
         $admin = Auth::guard("admin")->user();
-    $can = false;
-    if(isset($admin->isRulingMart)){
-        foreach($admin->isRulingMart as $mart){
-            if($mart->id == $id){
-                $can = true;
-            }
-        }
-        if($can){
+ 
             $mart = Mart::find($id)->with("isManagedBy","hasProducts","isFollowedBy","generatedOffers")->get();
             return view("admin.guestManageMart",["mart"=>$mart[0]]);
-        }else{
-            return back()->withErrors("You are not authorize to modify this mart");
-        }
+     
     }
     }
     
-    }
+    
     public function create(Request $request){
         $request->validate([
             "name"=>"required|max:250|min:4|string",
@@ -84,24 +75,6 @@ class MartController extends Controller
 public function UpdateMart($id){
     $mart = Mart::findOrFail($id);
     return view("admin.UpdateMart",["mart"=>$mart]);
-
-}
-public function UpdateGuestMart($id){
-    $admin = Auth::guard("admin")->user();
-    $can = false;
-    if(isset($admin->isRulingMart)){
-        foreach($admin->isRulingMart as $mart){
-            if($mart->id == $id){
-                $can = true;
-            }
-        }
-        if($can){
-            $mart = Mart::findOrFail($id);
-            return view("admin.UpdateMart",["mart"=>$mart]);
-        }else{
-            return back()->withErrors("You are not authorize to modify this mart");
-        }
-    }
 
 }
 public function Update(Request $request,$id){

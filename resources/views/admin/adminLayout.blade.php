@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <link rel="icon" href="/images/EveamartIco.png">
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body class="flex font-Rob">
@@ -58,7 +59,7 @@
                     @endif
                     @if(Auth::guard('admin')->user()->super)
                     <li class="w-11/12  text-start mx-2 rounded-sm p-1 my-1">
-                        <a href=""><i class="fa-regular fa-user mx-2"></i>Users</a>
+                        <a href="{{route("users")}}"><i class="fa-regular fa-user mx-2"></i>Users</a>
                     </li>
                     <br>
                     @else
@@ -106,8 +107,13 @@
                 <span class="w-2 h-2 bg-green-500 rounded-full absolute right-0 top-4"></span>
                  </a>
             </div>
+            
+
+
+
         </div>
     </header>
+
     @yield('content')
     
    </section>

@@ -15,7 +15,7 @@
 
     <div class="w-11/12">
 
-        <form action="{{route("UpdateTheMart",$mart->id)}}" enctype="multipart/form-data" method="POST" class="w-full">
+        <form action="{{route(Auth::guard("admin")->user()->super ? "UpdateTheMart":"UpdateTheGMart",$mart->id)}}" enctype="multipart/form-data" method="POST" class="w-full">
             @csrf
         <div class="w-full box">
             <h2 class="font-bold">

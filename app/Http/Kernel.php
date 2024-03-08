@@ -45,7 +45,9 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'admin'=> [\App\Http\Middleware\AdminAuthenticate::class],
-        "superAdmin"=>[\App\Http\Middleware\SuperAdminMiddleware::class]
+        "superAdmin"=>[\App\Http\Middleware\SuperAdminMiddleware::class],
+        "verifyOwner"=>[\App\Http\Middleware\VerifyOwnershipMiddleware::class],
+        "verifyOwnerProd"=>[\App\Http\Middleware\VerifyOwnershipForProdMiddleware::class]
     ];
 
     /**
@@ -68,7 +70,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin'=> \App\Http\Middleware\AdminAuthenticate::class,
-        "superAdmin"=>\App\Http\Middleware\SuperAdminMiddleware::class
-        
+        "superAdmin"=>\App\Http\Middleware\SuperAdminMiddleware::class,
+        "verifyOwner"=>\App\Http\Middleware\VerifyOwnershipMiddleware::class,
+        "verifyOwnerProd"=>\App\Http\Middleware\VerifyOwnershipForProdMiddleware::class
     ];
 }

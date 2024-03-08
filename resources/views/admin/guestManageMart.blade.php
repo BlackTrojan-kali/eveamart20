@@ -14,7 +14,7 @@
    <div class="box w-full md:flex justify-between">
     <h2 class="font-bold text-2xl">Manage Mart</h2>
     <div>
-        <a href="{{route("CreateProduct",$mart->id)}}">
+        <a href="{{route("CreateGProduct",$mart->id)}}">
         <button class="bg-orange-500 text-xs md:text-base text-white p-2 rounded-sm border">
             <i class="fa-solid fa-cart-shopping mx-2"></i>+Ajouter Un Produit
         </button>
@@ -39,11 +39,6 @@
         Nombre d'Administrateurs
         <br>
         {{$mart->isManagedBy? count($mart->isManagedBy):0}}
-    </div>
-    <div class="box text-white bg-yellow-500 text-xl font-bold">
-        Nombre d'offres
-        <br>
-        {{$mart->generatedOffers? count($mart->generatedOffers):0}}
     </div>
     <div class="box text-white bg-pink-500 text-xl font-bold">
         Nombre de followers
@@ -74,7 +69,7 @@
                 <td>{{$prods->product_weight}}</td>
                 <td>{{$prods->qty_in_stock}}</td>
                 <td class="flex gap-2">
-                    <a href="/admin/UpdateProduct/{{$prods->id}}/{{$prods->id_mart}}/{{$prods->id_category}}" class="text-blue-500 text-xl"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="/admin/UpdateGProduct/{{$prods->id}}/{{$prods->id_mart}}/{{$prods->id_category}}" class="text-blue-500 text-xl"><i class="fa-solid fa-pen-to-square"></i></a>
                     <form id="{{$prods->id}}" >
                         <meta name="csrf-token" content="{{ csrf_token() }}">
                         @csrf
@@ -132,7 +127,7 @@
             $.ajax({
 
             type:"DELETE",
-            url:"/admin/deleteProduct/"+id,
+            url:"/admin/deleteGProduct/"+id,
             datatype:"json",
             headers: {
         'X-CSRF-TOKEN': csrfToken

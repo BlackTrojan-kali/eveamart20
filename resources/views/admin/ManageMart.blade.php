@@ -45,18 +45,13 @@
         <br>
         {{$mart->isManagedBy? count($mart->isManagedBy):0}}
     </div>
-    <div class="box text-white bg-yellow-500 text-xl font-bold">
-        Nombre d'offres
-        <br>
-        {{$mart->generatedOffers? count($mart->generatedOffers):0}}
-    </div>
     <div class="box text-white bg-pink-500 text-xl font-bold">
         Nombre de followers
         <br>
         {{$mart->isFollowedBy? count($mart->isFollowedBy):0}}
     </div>
    </div>
-   <div class="box my-4">
+   <div class="box my-4" id="mart">
         <h2 class="text-xl font-bold">
             Liste Des Produits
         </h2>
